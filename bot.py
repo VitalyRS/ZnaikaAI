@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 # Переменные окружения
 API_KEY = os.getenv("API_AI")
 TG_TOKEN = os.getenv("API_TELEGA")
-AUTHORIZED_USER_ID = os.getenv("USER_ID")
+AUTHORIZED_USER_ID = int(os.getenv("USER_ID"))
 WEB_HOOK = os.getenv("WEB_HK")
 
 # Инициализация
