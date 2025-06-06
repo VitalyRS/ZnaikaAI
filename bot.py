@@ -4,6 +4,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 # import google.generativeai as genai
 from openai import OpenAI
+import re
 
 from newspaper import Article
 import logging # Импортируем модуль logging
@@ -187,6 +188,7 @@ def get_summary(url, style_key, length_key):
         response = call_deepseek(prompt, model="deepseek-chat")
         # print(response)
         summary = response
+        summary = re.sub(r"(?<!\*)\*(?!\*)", "", summary)  # Удаляет только одиночные *
         logger.info(f"Summary received from Gemini. First 20 chars: {summary[:20]}")
         return summary
     except Exception as e:
