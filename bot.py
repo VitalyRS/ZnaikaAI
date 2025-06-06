@@ -166,6 +166,8 @@ def telegram_webhook():
 
         if update.message:
             logger.info(f"Message received: '{update.message.text}' from chat {update.message.chat.id}")
+            if update.message.chat.id !=AUTHORIZED_USER_ID:
+                return
             if update.message.text.startswith("http"):
                 handle_url(update.message)
             else:
