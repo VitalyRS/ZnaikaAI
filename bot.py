@@ -87,7 +87,7 @@ def call_deepseek(prompt, model="deepseek-chat"):
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
-        print(f"Ошибка при вызове DeepSeek API: {e}")
+        # print(f"Ошибка при вызове DeepSeek API: {e}")
         return None
 
 # ---------- Генерация промпта ----------
@@ -140,14 +140,14 @@ def get_summary(url, style_key, length_key):
         logger.info("Article parsed.")
         # print(article.text)
         prompt = generate_prompt(article.text, url, style_key, length_key)
-        logger.info(f"Prompt generated. First 200 chars: {prompt[:200]}") # Логируем часть промпта
+        logger.info(f"Prompt generated. First 20 chars: {prompt[:20]}") # Логируем часть промпта
 
         # model = genai.GenerativeModel('gemini-2.0-flash')
         logger.info("Calling Gemini API...")
         response = call_deepseek(prompt, model="deepseek-chat")
         # print(response)
         summary = response
-        logger.info(f"Summary received from Gemini. First 200 chars: {summary[:200]}")
+        logger.info(f"Summary received from Gemini. First 20 chars: {summary[:20]}")
         return summary
     except Exception as e:
         logger.error(f"Error in get_summary for URL {url}: {e}")
@@ -161,7 +161,7 @@ def telegram_webhook():
 
     try:
         json_data = request.get_json(force=True)
-        logger.info(f"Received JSON data: {json_data}")
+        # logger.info(f"Received JSON data: {json_data}")
         update = telebot.types.Update.de_json(json_data)
 
         if update.message:
@@ -185,7 +185,7 @@ def telegram_webhook():
 
     except Exception as e:
         logger.error(f"Error processing Telegram webhook: {e}")
-        logger.error(f"Raw request data: {request.data.decode('utf-8', 'ignore')}")
+        # logger.error(f"Raw request data: {request.data.decode('utf-8', 'ignore')}")
         return 'error', 500
 
     return 'ok', 200
