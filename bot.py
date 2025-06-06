@@ -151,7 +151,7 @@ def generate_prompt(text, url, style_key, length_key):
     ),
 }
 
-}
+
     return prompts.get(style_key, "")
 
 # ---------- Получение сводки ----------
